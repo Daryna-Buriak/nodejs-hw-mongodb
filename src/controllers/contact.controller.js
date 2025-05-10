@@ -1,6 +1,6 @@
 import { getContactById } from '../services/contacts.js';
 
-export const getContact = async (req, res) => {
+export const getContactController = async (req, res) => {
   try {
     const { contactId } = req.params;
     const contact = await getContactById(contactId);

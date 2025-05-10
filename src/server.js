@@ -4,13 +4,13 @@ import dotenv from 'dotenv';
 import pino from 'pino-http';
 
 import { getEnvVar } from './utils/getEnvVar.js';
-//import { getAllContacts, getContactById } from './services/contacts.js';
 import { getAllContactsController } from './controllers/allcontacts.controller.js';
+import { getContactController } from './controllers/contact.controller.js';
 
 dotenv.config();
 const PORT = Number(getEnvVar('PORT', '3000'));
 
-export default function setupServer() {
+export const setupServer = async () => {
   const app = express();
 
   app.use(express.json());
@@ -30,38 +30,17 @@ export default function setupServer() {
     });
   });
 
-  app.get('contacts', getAllContactsController);
+  app.get('/contacts', getAllContactsController);
 
-  app.get('contacts/:contactId', async (req, res) => {
-    const { contactId } = req.params;
-    const contact = await getContactById(contactId);
+  app.get('/contacts/:contactId', getContactController);
 
-    if (!contact) {
-      res.status(404).json({
-        message: 'Not found',
-      });
-      return;
-    }
-
-    res.status(200).json({
-      data: contact,
-    });
-  });
-
-  app.use('*', (req, res, next) => {
+  app.use((req, res, next) => {
     res.status(404).json({
       message: 'Route not found',
-    });
-  });
-
-  app.use((err, req, res, next) => {
-    res.status(500).json({
-      message: 'Something went wrong',
-      error: err.message,
     });
   });
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-}
+};
