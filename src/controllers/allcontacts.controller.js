@@ -9,10 +9,6 @@ export const getAllContactsController = async (req, res) => {
       data: contacts,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      status: 500,
-      message: 'Internal server error',
-    });
+    next(error);
   }
 };
