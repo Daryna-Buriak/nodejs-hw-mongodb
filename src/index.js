@@ -10,4 +10,9 @@ const bootstrap = async () => {
   }
 };
 
+export const SORT_ORDER = {
+  ASC: 'asc',
+  DESC: 'desc',
+};
+
 bootstrap();
