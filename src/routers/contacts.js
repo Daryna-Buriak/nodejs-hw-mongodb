@@ -13,6 +13,7 @@ import { updateContactController } from '../controllers/updatecontact.controller
 import { deleteContactController } from '../controllers/deletecontact.controller.js';
 
 const router = Router();
+const jsonParser = express.json();
 
 router.use(authenticate);
 
@@ -22,12 +23,15 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactController));
 
 router.post(
   '/',
+  jsonParser,
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
 router.patch(
   '/:contactId',
+  isValidId,
+  jsonParser,
   validateBody(createContactSchema),
   ctrlWrapper(updateContactController),
 );
