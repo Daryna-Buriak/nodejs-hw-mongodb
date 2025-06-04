@@ -4,6 +4,7 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { createContactSchema } from '../validation/contacts.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 import { getAllContactsController } from '../controllers/allcontacts.controller.js';
 import { getContactController } from '../controllers/contact.controller.js';
@@ -12,6 +13,8 @@ import { updateContactController } from '../controllers/updatecontact.controller
 import { deleteContactController } from '../controllers/deletecontact.controller.js';
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/', ctrlWrapper(getAllContactsController));
 
