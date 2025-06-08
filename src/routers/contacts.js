@@ -24,6 +24,7 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactController));
 
 router.post(
   '/',
+  upload.single('photo'),
   jsonParser,
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
@@ -31,6 +32,7 @@ router.post(
 
 router.patch(
   '/:contactId',
+  upload.single('photo'),
   isValidId,
   jsonParser,
   validateBody(createContactSchema),

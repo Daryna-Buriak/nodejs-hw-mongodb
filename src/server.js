@@ -3,11 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import pino from 'pino-http';
 import cookieParser from 'cookie-parser';
+import router from './routers/index.js';
 
 import { getEnvVar } from './utils/getEnvVar.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-import router from './routers/index.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 const PORT = Number(getEnvVar('PORT', '3000'));
@@ -30,6 +31,7 @@ export const setupServer = async () => {
   app.use(router);
   app.use(notFoundHandler);
   app.use(errorHandler);
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
