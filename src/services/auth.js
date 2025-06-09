@@ -6,7 +6,12 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 
 import { User } from '../db/models/user.js';
-import { FIFTEEN_MINUTES, THIRTY_DAYS, ONE_DAY } from '../constants/index.js';
+import {
+  FIFTEEN_MINUTES,
+  THIRTY_DAYS,
+  ONE_DAY,
+  TEMPLATES_DIR,
+} from '../constants/index.js';
 import { Session } from '../db/models/session.js';
 import { randomBytes } from 'crypto';
 import { SMTP } from '../constants/index.js';
@@ -94,7 +99,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
 };
 
 export const requestResetToken = async (email) => {
-  const user = await UsersCollection.findOne({ email });
+  const user = await User.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
@@ -142,7 +147,7 @@ export const resetPassword = async (payload) => {
     throw err;
   }
 
-  const user = await UsersCollection.findOne({
+  const user = await User.findOne({
     email: entries.email,
     _id: entries.sub,
   });
@@ -153,8 +158,5 @@ export const resetPassword = async (payload) => {
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  await UsersCollection.updateOne(
-    { _id: user._id },
-    { password: encryptedPassword },
-  );
+  await User.updateOne({ _id: user._id }, { password: encryptedPassword });
 };

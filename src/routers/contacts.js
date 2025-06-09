@@ -1,6 +1,8 @@
+import express from 'express';
+import { upload } from '../middlewares/multer.js';
+
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import express from 'express';
 
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidId.js';
