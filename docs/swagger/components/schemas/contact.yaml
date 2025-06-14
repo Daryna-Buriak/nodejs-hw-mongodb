@@ -1,0 +1,40 @@
+type: object
+required:
+  - _id
+  - name
+  - phoneNumber
+  - contactType
+  - userId
+properties:
+  _id:
+    type: string
+    description: 'Contact id'
+    example: 507f1f77bcf86cd799439011
+  name:
+    type: string
+    description: 'Contact name (and surname)'
+    example: 'John Doe'
+  phoneNumber:
+    type: string
+    description: 'Contact number'
+    example: '+38095848372934'
+  email:
+    type: string
+    description: 'Contact email'
+    example: 'test@testemail.com'
+  isFavourite:
+    type: boolean
+    description: 'If this contact is in the "Favourite" list'
+    example: true
+  contactType:
+    type: string
+    enum: ['work', 'home', 'personal']
+    description: 'If this contact is in group work, home or personal'
+  userId:
+    type: string
+    description: 'user connected to this contact'
+    example: 65e4decdd286b30065d54af9
+  photo:
+    type: string
+    format: binary
+    description: 'Contact photo'

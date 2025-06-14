@@ -1,0 +1,73 @@
+tags:
+  - Contacts
+summary: Edit contact
+operationId: editContact
+description: 'Edit a contact by id'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '507f1f77bcf86cd799439011'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - _id
+        properties:
+          name:
+            type: string
+            description: 'Contact name (and surname)'
+            example: 'John Doe'
+          phoneNumber:
+            type: string
+            description: 'Contact number'
+            example: '+38095848372934'
+          email:
+            type: string
+            description: 'Contact email'
+            example: 'test@testemail.com'
+          isFavourite:
+            type: boolean
+            description: 'If this contact is in the "Favourite" list'
+            example: true
+          contactType:
+            type: string
+            enum: ['work', 'home', 'personal']
+            description: 'If this contact is in group work, home or personal'
+          userId:
+            type: string
+            description: 'user connected to this contact'
+            example: 65e4decdd286b30065d54af9
+          photo:
+            type: string
+            format: binary
+            description: 'Contact photo'
+responses:
+  '200':
+    description: Edits a contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully edited a contact!
+            data:
+              type: object
+              $ref: '../../../components/schemas/contact.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
