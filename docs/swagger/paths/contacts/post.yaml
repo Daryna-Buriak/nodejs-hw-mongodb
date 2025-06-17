@@ -15,7 +15,6 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-          - userId
         properties:
           name:
             type: string
@@ -37,10 +36,6 @@ requestBody:
             type: string
             enum: ['work', 'home', 'personal']
             description: 'If this contact is in group work, home or personal'
-          userId:
-            type: string
-            description: 'user connected to this contact'
-            example: 65e4decdd286b30065d54af9
           photo:
             type: string
             format: binary

@@ -2,19 +2,19 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "<назва вашого додатку>",
+    "title": "Contacts App",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "<опис вашого додатку>"
+    "description": "Add and navigate your contacts"
   },
   "servers": [
     {
       "url": "http://localhost:3000"
     },
     {
-      "url": "http://localhost:3000"
+      "url": "https://contacts-app-hkr7.onrender.com"
     }
   ],
   "tags": [
@@ -188,8 +188,7 @@
                   "_id",
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -220,11 +219,6 @@
                       "personal"
                     ],
                     "description": "If this contact is in group work, home or personal"
-                  },
-                  "userId": {
-                    "type": "string",
-                    "description": "user connected to this contact",
-                    "example": "65e4decdd286b30065d54af9"
                   },
                   "photo": {
                     "type": "string",
@@ -398,11 +392,6 @@
                     ],
                     "description": "If this contact is in group work, home or personal"
                   },
-                  "userId": {
-                    "type": "string",
-                    "description": "user connected to this contact",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "photo": {
                     "type": "string",
                     "format": "binary",
@@ -473,33 +462,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete contact by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully deleted contact with id 65ca67e7ae7f10c88b598384!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/contact"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Delete contact by id"
           },
           "401": {
             "$ref": "#/components/responses/401"
